@@ -1,4 +1,5 @@
 from mapa import MAPA, CUSTOS, inifim
+from astar import astar
 
 def main():
 

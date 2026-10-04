@@ -30,18 +30,18 @@ def movimentos(pos, MAPA, CUSTOS):
     lista =  []
     if linha > 0:
         if (MAPA[linha -1][coluna] in CUSTOS):
-            lista.append((linha - 1, coluna), CUSTOS[MAPA[linha -1][coluna]])
+            lista.append(((linha - 1, coluna), CUSTOS[MAPA[linha -1][coluna]]))
     if coluna > 0:
         if (MAPA[linha][coluna-1] in CUSTOS):
-            lista.append((linha, coluna -1), CUSTOS[MAPA[linha][coluna - 1]])
+            lista.append(((linha, coluna -1), CUSTOS[MAPA[linha][coluna - 1]]))
         
     if linha < len(MAPA)-1:
         if (MAPA[linha + 1][coluna] in CUSTOS):
-            lista.append((linha + 1, coluna), CUSTOS[MAPA[linha + 1][coluna]])
+            lista.append(((linha + 1, coluna), CUSTOS[MAPA[linha + 1][coluna]]))
         
     if coluna < len(MAPA[0]) - 1:
          if (MAPA[linha][coluna + 1] in CUSTOS):
-                    lista.append((linha, coluna+1), CUSTOS[MAPA[linha][coluna+1]])
+                    lista.append(((linha, coluna+1), CUSTOS[MAPA[linha][coluna+1]]))
     return lista
 
 def manhattan(pos1, pos2):

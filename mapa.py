@@ -18,3 +18,8 @@ MAPA = [
     '.J..........#..',
     '......####....G',
 ]
+def inifim(MAPA, simbolo):
+    for i, linha in enumerate(MAPA):
+        for j, coluna in enumerate(linha):
+            if coluna == simbolo:
+                return(i, j)

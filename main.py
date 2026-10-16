@@ -1,11 +1,13 @@
 import sys
+from gerador import gerar_mapa
 print(sys.executable)
 
-from mapa import MAPA, CUSTOS, inifim
+from mapa import CUSTOS, inifim
 from astar import astar
 from visual import desenhar 
 
 def main():
+    MAPA = gerar_mapa(linhas=20, colunas=30)
     inicio = inifim(MAPA, 'S')
     fim = inifim(MAPA, 'G')
 

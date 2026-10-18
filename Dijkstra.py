@@ -50,7 +50,7 @@ def Dijkstra(inicio,fim, matriz, custo):
                     distancias[nova_linha][nova_coluna] = novo_custo
                     veio_de[(nova_linha, nova_coluna)] = (l, c)
                     heapq.heappush(fila, (novo_custo, nova_linha, nova_coluna))
-    return -1
+    return None, None
 
 
 

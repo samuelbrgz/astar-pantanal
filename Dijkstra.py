@@ -9,7 +9,7 @@ matriz = [
     [4, 2, 1]
 ]
 
-def Dijkstra(inicio,fim, matriz, custo):
+def Dijkstra(inicio,fim, matriz, custo, contador=None):
     linhas = len(matriz)
     colunas = len(matriz[0])
 
@@ -33,6 +33,9 @@ def Dijkstra(inicio,fim, matriz, custo):
 
     while fila:
         distancia_atual, l, c = heapq.heappop(fila)
+
+        if contador is not None:
+            contador['expandidos'] += 1
 
 
         if(l,c) == fim:

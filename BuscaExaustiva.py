@@ -1,4 +1,4 @@
-def Buscaexaustiva(inicio, fim, matriz, custo):
+def Buscaexaustiva(inicio, fim, matriz, custo, contador=None):
     linhas, colunas = len(matriz), len(matriz[0])
 
     nova_matriz = [[0]* colunas for _ in range(linhas)]
@@ -18,6 +18,9 @@ def Buscaexaustiva(inicio, fim, matriz, custo):
 
         if custo_atual >= melhor_custo:
             return
+
+        if contador is not None:
+            contador['expandidos'] += 1
 
         if (l, c) == fim:
             melhor_custo = custo_atual

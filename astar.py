@@ -9,7 +9,7 @@ def reconstruir_caminho(veio_de, atual):
     caminho.reverse()
     return caminho
 
-def astar(inicio, fim, MAPA, CUSTOS):
+def astar(inicio, fim, MAPA, CUSTOS, contador=None):
     fila = []
     heapq.heappush(fila, (manhattan(inicio, fim), inicio))
     g = {inicio: 0}
@@ -17,6 +17,10 @@ def astar(inicio, fim, MAPA, CUSTOS):
 
     while fila:
         f, atual = heapq.heappop(fila)
+        if f - manhattan(atual, fim) > g[atual]:  # entrada antiga da fila
+            continue
+        if contador is not None:
+            contador['expandidos'] += 1
         if atual == fim:
             return g[fim], reconstruir_caminho(veio_de, fim)
 

@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 def desenhar(MAPA, caminho, custo):
     simbolos = ['.', '~', '*', '#', 'J', 'S', 'G']
@@ -19,4 +21,43 @@ def desenhar(MAPA, caminho, custo):
     ax.set_xticks(range(len(MAPA[0])))
     ax.set_yticks(range(len(MAPA)))
     ax.grid(color='white', linewidth=0.5)
+    plt.show()
+
+
+SIMBOLOS = ['.', '~', '*', '#', 'J', 'S', 'G']
+CORES = ['#d9ead3', '#9fc5e8', '#7f6000', '#222222', '#e69138', '#38761d', '#f1c232']
+ROTULOS = ['Campo seco (custo 1)', 'Água rasa (custo 3)', 'Lama/brejo (custo 5)',
+           'Obstáculo (#)', 'Obstáculo (J)', 'Início (S)', 'Destino (G)']
+
+
+def desenhar_comparacao(mapa, resultados, salvar=None):
+    """Desenha o mesmo mapa uma vez por algoritmo, lado a lado, com legenda.
+
+    resultados: dict {nome: {'custo', 'caminho', 'expandidos', 'tempo'}}
+    """
+    indice = {s: i for i, s in enumerate(SIMBOLOS)}
+    matriz = [[indice[c] for c in linha] for linha in mapa]
+    cmap = ListedColormap(CORES)
+
+    fig, axs = plt.subplots(1, len(resultados), figsize=(6 * len(resultados), 6.5))
+    for ax, (nome, r) in zip(axs, resultados.items()):
+        ax.imshow(matriz, cmap=cmap, vmin=0, vmax=len(SIMBOLOS) - 1)
+        ys = [p[0] for p in r['caminho']]
+        xs = [p[1] for p in r['caminho']]
+        ax.plot(xs, ys, color='magenta', linewidth=2.5, marker='o', markersize=4)
+        ax.set_title(f"{nome}\ncusto: {r['custo']} | nós expandidos: {r['expandidos']}"
+                     f" | {r['tempo']:.3f} ms")
+        ax.set_xticks(range(len(mapa[0])))
+        ax.set_yticks(range(len(mapa)))
+        ax.tick_params(labelsize=7)
+        ax.grid(color='white', linewidth=0.5)
+
+    legenda = [Patch(facecolor=c, edgecolor='gray', label=r)
+               for c, r in zip(CORES, ROTULOS)]
+    legenda.append(Line2D([0], [0], color='magenta', linewidth=2.5, marker='o',
+                          label='Caminho encontrado'))
+    fig.legend(handles=legenda, loc='lower center', ncol=4)
+    fig.tight_layout(rect=(0, 0.1, 1, 0.93))
+    if salvar:
+        fig.savefig(salvar, dpi=150)
     plt.show()

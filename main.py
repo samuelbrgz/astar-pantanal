@@ -22,7 +22,7 @@ def main():
     else:
         print('Custo:', custo)
         print('Caminho:', caminho)
-        #desenhar(MAPA, caminho, custo)
+        desenhar(MAPA, caminho, custo)
         desenhar(MAPA, caminho_dijkstra, custo_digkstra)
 
 if __name__ == '__main__':

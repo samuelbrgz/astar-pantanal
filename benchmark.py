@@ -78,17 +78,23 @@ def media_dp(valores):
 
 def imprimir_tabela(dados):
     n = len(next(iter(dados.values()))['custo'])
-    print(f'\nResultados em {n} mapas aleatórios (média ± desvio padrão)\n')
-    print(f"{'Algoritmo':<11}{'Custo':>16}{'Nós expandidos':>26}{'Tempo (ms)':>24}")
-    print('-' * 77)
-    for nome, m in dados.items():
-        c = media_dp(m['custo'])
-        e = media_dp(m['expandidos'])
-        t = media_dp(m['tempo'])
-        print(f'{nome:<11}'
-              f'{c[0]:>9.2f} ± {c[1]:<5.2f}'
-              f'{e[0]:>13.1f} ± {e[1]:<9.1f}'
-              f'{t[0]:>11.3f} ± {t[1]:<8.3f}')
+    print(f'\nResultados em {n} mapas aleatórios\n')
+
+    metricas = [('custo', 'Custo'),
+                ('expandidos', 'Nós expandidos'),
+                ('tempo', 'Tempo (ms)')]
+
+    for chave, rotulo in metricas:
+        print(rotulo)
+        print(f"{'Algoritmo':<11}{'média':>14}{'dp':>12}"
+              f"{'mediana':>14}{'mín':>12}{'máx':>14}")
+        for nome, m in dados.items():
+            valores = m[chave]
+            media, dp = media_dp(valores)
+            print(f'{nome:<11}{media:>14,.3f}{dp:>12,.3f}'
+                  f'{statistics.median(valores):>14,.3f}'
+                  f'{min(valores):>12,.3f}{max(valores):>14,.3f}')
+        print()
 
 
 def grafico_comparacao(dados, salvar=None):

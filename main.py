@@ -5,7 +5,7 @@ from visual import desenhar_comparacao
 
 def main():
     # 1) Um mapa só, com o caminho de cada algoritmo lado a lado
-    mapa = gerar_mapa(linhas=10, colunas=10, seed=42)
+    mapa = gerar_mapa(linhas=10, colunas=10, seed=29    )
     print('Mapa gerado:')
     for linha in mapa:
         print(linha)
